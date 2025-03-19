@@ -1,1 +1,37 @@
-<p>dashboard-candidate works!</p>
+<div class="flex h-screen">
+    
+    <aside class="w-64 bg-gray-200 text-white flex flex-col p-4">
+      <h2 class="text-xl text-gray-900 font-bold">ResumeRanker</h2>
+      <nav class="mt-4 space-y-2">
+        <a href="#" class="block text-gray-900 py-2 px-4 rounded hover:bg-gray-700 hover:text-gray-100">Home</a>
+        <a (click)="goToProfile()" class="block text-gray-900 py-2 px-4 rounded hover:bg-gray-700 hover:text-gray-100">Profile</a>
+        <a (click)="goToJob()" class="block text-gray-900 py-2 px-4 rounded hover:bg-gray-700 hover:text-gray-100">Job Applications</a>
+        <a href="#" class="block text-gray-900 py-2 px-4 rounded hover:bg-gray-700 hover:text-gray-100">Settings</a>
+
+      </nav>
+    </aside>
+  
+    
+    <div class="flex-1 flex flex-col">
+      
+      <header class="bg-gray-200 text-white p-4 flex justify-between items-center">
+        <h2 class="text-lg text-gray-900 font-semibold">Welcome</h2>
+        <button class="px-4 py-2 bg-gray-700 rounded">Logout</button>
+      </header>
+  
+      
+      <main class="flex-1 p-6 bg-gray-100 overflow-auto">
+        <div *ngIf="isProfileIncomplete" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 mb-4">
+          <p class="font-semibold">Your profile is incomplete!</p>
+          <p>Please complete your profile to get better job matches.</p>
+          <button (click)="goToProfile()" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">
+            Complete Profile
+          </button>
+        </div>        
+        <ng-container *ngIf="!isProfileIncomplete">
+          <router-outlet></router-outlet> 
+        </ng-container>
+      </main>
+    </div>
+  </div>
+  

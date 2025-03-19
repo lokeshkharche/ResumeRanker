@@ -1,0 +1,52 @@
+<div *ngIf="userData; else loading" class="p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold mb-4">Recruiter Profile</h2>
+  
+    <form #profileForm="ngForm" (ngSubmit)="saveChanges()">
+      
+      <label><strong>Full Name:</strong></label>
+      <input name="full_name" [(ngModel)]="updatedUserData.full_name" class="border p-2 w-full rounded" required />
+  
+      <label><strong>Email:</strong></label>
+      <input name="email" [(ngModel)]="updatedUserData.email" class="border p-2 w-full rounded" disabled />
+  
+      <label><strong>Company Name:</strong></label>
+      <input name="company_name" [(ngModel)]="updatedUserData.company_name" class="border p-2 w-full rounded" required />
+  
+      <label><strong>Company Website:</strong></label>
+      <input name="company_website" [(ngModel)]="updatedUserData.company_website" class="border p-2 w-full rounded" />
+  
+      <label><strong>Industry:</strong></label>
+      <input name="industry" [(ngModel)]="updatedUserData.industry" class="border p-2 w-full rounded" />
+  
+      <label><strong>Company Description:</strong></label>
+      <textarea name="company_description" [(ngModel)]="updatedUserData.company_description" class="border p-2 w-full rounded"></textarea>
+  
+      <label><strong>Phone Number:</strong></label>
+      <input name="phone_number" [(ngModel)]="updatedUserData.phone_number" class="border p-2 w-full rounded" />
+  
+      <label><strong>Company Address:</strong></label>
+      <input name="company_address" [(ngModel)]="updatedUserData.company_address" class="border p-2 w-full rounded" />
+  
+      <label><strong>Number of Employees:</strong></label>
+      <input type="number" name="number_of_employees" [(ngModel)]="updatedUserData.number_of_employees" class="border p-2 w-full rounded" />
+  
+      <label><strong>Headquarters Location:</strong></label>
+      <input name="headquarters_location" [(ngModel)]="updatedUserData.headquarters_location" class="border p-2 w-full rounded" />
+  
+      <label><strong>Company Logo:</strong></label>
+      <input type="file" (change)="onFileSelected($event)" class="border p-2 w-full rounded" accept="image/*" />
+  
+      <button (click)="uploadLogo()" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">Upload Logo</button>
+  
+      <div *ngIf="getLogoUrl()">
+        <img [src]="getLogoUrl()" alt="Company Logo" class="w-20 h-20 mt-4 rounded-full shadow-md" />
+      </div>
+  
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4">Save Changes</button>
+    </form>
+  </div>
+  
+  <ng-template #loading>
+    <p class="text-gray-500">Loading recruiter details...</p>
+  </ng-template>
+  
