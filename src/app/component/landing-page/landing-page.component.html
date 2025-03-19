@@ -1,5 +1,5 @@
 <!-- landing-page.component.html -->
-<nav class="bg-blue-500 p-4">
+<!-- <nav class="bg-blue-500 p-4">
     <div class="container mx-auto flex justify-between items-center">
       <div class="text-white text-2xl font-bold">
         <a href="#">Resume Ranker</a>
@@ -17,5 +17,88 @@
         </button>
       </div>
     </div>
-  </nav>
+  </nav> -->
+  <!-- Landing Page for Resume Ranker -->
+<!-- landing-page.component.html -->
+<nav class="bg-blue-500 p-4 shadow-md fixed w-full z-50">
+  <div class="container mx-auto flex justify-between items-center">
+    <div class="text-white text-2xl font-bold">
+      <a href="#">Resume Ranker</a>
+    </div>
+    <div>
+      <button 
+        class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded mr-4"
+        (click)="goToLogin()">
+        Login
+      </button>
+      <button 
+        class="text-white bg-green-700 hover:bg-green-800 px-4 py-2 rounded"
+        (click)="goToRegister()">
+        Register
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Header Section -->
+<header id="home" class="min-h-screen flex items-center justify-center parallax"
+  style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?technology,office');">
+  <div class="text-center text-white">
+    <h1 class="text-6xl font-extrabold mb-4 glitch-text">
+      Resume Ranker
+      <span>Resume Ranker</span>
+      <span>Resume Ranker</span>
+    </h1>
+    <p class="text-xl mb-8">Find the best job or the top talent effortlessly</p>
+    <div class="space-x-4">
+      <button (click)="showModal('job-seeker')" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg transition">
+        Job Seeker
+      </button>
+      <button (click)="showModal('recruiter')" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg transition">
+        Recruiter
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md text-center card-hover">
+      <h2 class="text-2xl font-semibold text-white">For Job Seekers</h2>
+      <img src="../../../assets/image/job-seeker.svg" alt="Job Seeker" class="mx-auto my-4 w-48">
+      <p class="text-gray-700">Unlock your potential by finding the best opportunities that match your skills.</p>
+      <a href="#" onclick="showModal('job-seeker')"
+          class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg">Get Started</a>
+  </div>
+  <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md text-center card-hover">
+      <h2 class="text-2xl font-semibold text-white">For Recruiters</h2>
+      <img src="../../../assets/image/undraw_interview_yz52.svg" alt="Recruiter" class="mx-auto my-4 w-48 rounded-lg">
+      <p class="text-gray-700">Find the top talent effortlessly with our advanced resume ranking.</p>
+      <a href="#" onclick="showModal('recruiter')"
+          class="mt-4 inline-block bg-gray-700 text-white px-6 py-2 rounded-lg">Get Started</a>
+  </div>
+</div>
+
+<!-- Features Section -->
+<section id="features" class="container mx-auto px-6 py-12 text-center">
+  <h2 class="text-3xl font-bold mb-8">Key Features</h2>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
+      <h3 class="text-xl font-semibold text-white mb-4">Advanced Ranking Algorithm</h3>
+      <p class="text-gray-700">Ranks resumes based on relevancy and skills.</p>
+    </div>
+    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
+      <h3 class="text-xl font-semibold text-white mb-4">User-Friendly Interface</h3>
+      <p class="text-gray-700">Intuitive design for an easy experience.</p>
+    </div>
+    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
+      <h3 class="text-xl font-semibold text-white mb-4">Mobile-Friendly</h3>
+      <p class="text-gray-700">Access your ranked resumes on the go.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white text-center py-4">
+  <p>&copy; 2025 Resume Ranker. All rights reserved.</p>
+</footer>
   

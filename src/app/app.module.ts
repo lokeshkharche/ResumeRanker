@@ -4,27 +4,34 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
 import { RegisterComponent } from './component/register/register.component';
-import { DashboardCandidateComponent } from './component/dashboard-candidate/dashboard-candidate.component';
-import { DashboardRecruiterComponent } from './component/dashboard-recruiter/dashboard-recruiter.component';
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { DashboardLayoutComponent } from './component/dashboard-candidate/dashboard-layout/dashboard-layout/dashboard-layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardCandidateComponent,
-    DashboardRecruiterComponent,
-    LandingPageComponent
+   
+    
+    LandingPageComponent,
+    DashboardLayoutComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({  
+      positionClass: 'toast-bottom-right', 
+      timeOut: 3000, 
+      preventDuplicates: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

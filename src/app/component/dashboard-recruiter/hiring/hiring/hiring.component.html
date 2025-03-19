@@ -1,0 +1,94 @@
+<div class="p-6 max-w-5xl mx-auto bg-white shadow-md rounded-lg">
+  <h2 class="text-2xl font-semibold mb-4">Job Listings</h2>
+
+  <table class="w-full border-collapse border border-gray-300">
+    <thead>
+      <tr class="bg-gray-200">
+        <th class="border p-2">Job Title</th>
+        <th class="border p-2">Description</th>
+        <th class="border p-2">Location</th>
+        <th class="border p-2">Salary</th>
+        <th class="border p-2">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobs">
+        <td class="border p-2 font-medium">{{ job.title }}</td>
+        <td class="border p-2">{{ job.description }}</td>
+        <td class="border p-2">{{ job.location }}</td>
+        <td class="border p-2">{{ job.salary ? job.salary : 'N/A' }}</td>
+        <td class="border p-2">
+          <button 
+            class="bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 transition"
+            (click)="viewApplications(job.id)">
+            Applications
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="toggleForm()" class="mt-4 bg-green-500 text-white p-2 rounded-md w-full hover:bg-green-600 transition">
+    {{ showForm ? 'Close Job Form' : 'Post a Job' }}
+  </button>
+
+  <div *ngIf="showForm" class="mt-4 p-4 border rounded-md bg-gray-100">
+    <h2 class="text-2xl font-semibold mb-4">Post a New Job</h2>
+
+    <form [formGroup]="jobForm" (ngSubmit)="submitJob()" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 font-medium">Job Title</label>
+        <input type="text" formControlName="title" class="w-full p-2 border rounded-md" placeholder="Enter job title" required>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium">Description</label>
+        <textarea formControlName="description" class="w-full p-2 border rounded-md" rows="4" placeholder="Enter job description" required></textarea>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium">Location</label>
+        <input type="text" formControlName="location" class="w-full p-2 border rounded-md" placeholder="Enter job location">
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium">Salary</label>
+        <input type="number" formControlName="salary" class="w-full p-2 border rounded-md" placeholder="Enter salary (optional)">
+      </div>
+
+      <button type="submit" class="bg-blue-500 text-white p-2 rounded-md w-full hover:bg-blue-600 transition">
+        Post Job
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- Applications Modal -->
+<div *ngIf="showApplicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-3/4">
+    <h2 class="text-xl font-semibold mb-4">Job Applications</h2>
+    
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border p-2">Candidate Name</th>
+          <th class="border p-2">Email</th>
+          <th class="border p-2">Resume</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of applications">
+          <td class="border p-2">{{ application.candidates.fullname }}</td>
+          <td class="border p-2">{{ application.candidates.email }}</td>
+          <td class="border p-2">
+            <a [href]="application.resume_url" target="_blank" class="text-blue-500 underline">View Resume</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="closeApplicationsModal()" class="mt-4 bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition">
+      Close
+    </button>
+  </div>
+</div>

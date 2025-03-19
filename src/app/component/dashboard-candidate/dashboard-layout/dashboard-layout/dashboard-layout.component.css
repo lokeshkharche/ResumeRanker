@@ -1,0 +1,5 @@
+/* Ensures the sidebar takes full height */
+aside {
+    height: 100vh;
+  }
+  

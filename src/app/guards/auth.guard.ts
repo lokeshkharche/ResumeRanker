@@ -1,29 +1,41 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { AuthService } from '../services/auth.service';
+import { Injectable } from "@angular/core";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
+import { SupaService } from "../services/supa.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private supaService: SupaService,
+    private router: Router
+  ) {}
 
-  canActivate(
+  async canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isAuthenticated.pipe(
-      map(session => {
-        if (session) {
-          return true;
-        } else {
-          this.router.navigate(['/login']); 
-          return false;
-        }
-      })
-    );
+  ): Promise<boolean> {  
+    console.log(" Checking user session in AuthGuard...");
+    
+    
+    const { data, error } = await this.supaService.getSession();
+
+    if (error || !data.session) {
+      console.warn('No active session found. Redirecting to login.');
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    const userRole = data.session.user?.user_metadata['role'];
+    const expectedRole = route.data['role'];
+
+    if (userRole === expectedRole) {
+      console.log("User authorized, granting access.");
+      return true;
+    } else {
+      console.warn(` Unauthorized access: Expected role: ${expectedRole}, Found role: ${userRole}`);
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
 }
