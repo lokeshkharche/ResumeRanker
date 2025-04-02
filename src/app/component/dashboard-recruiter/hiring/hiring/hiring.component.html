@@ -63,7 +63,6 @@
   </div>
 </div>
 
-<!-- Applications Modal -->
 <div *ngIf="showApplicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
   <div class="bg-white p-6 rounded-lg shadow-lg w-3/4">
     <h2 class="text-xl font-semibold mb-4">Job Applications</h2>
@@ -89,6 +88,9 @@
 
     <button (click)="closeApplicationsModal()" class="mt-4 bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition">
       Close
+    </button>
+    <button (click)="goToATS()" class="mt-4 mx-3 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition">
+      ATS
     </button>
   </div>
 </div>

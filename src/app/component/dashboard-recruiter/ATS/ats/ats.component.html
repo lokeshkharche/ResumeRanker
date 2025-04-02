@@ -1,0 +1,27 @@
+<div class="p-6 max-w-5xl mx-auto bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">ATS - Applications for Job ID: {{ jobId }}</h2>
+  
+    <label class="block mb-2">Filter by Matching Percentage: {{ minMatchPercentage }}%</label>
+    <input type="range" min="0" max="100" [(ngModel)]="minMatchPercentage" (input)="filterCandidates()" class="w-full">
+
+
+    <table class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr class="bg-gray-200">
+          <th class="border p-2">Candidate ID:</th>
+          <th class="border p-2">Resume</th>
+          <th class="border p-2">Match %</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let application of applications">
+          <td class="border p-2">{{ application.candidate_id }}</td>
+          <td class="border p-2">
+            <a [href]="application.resume_url" target="_blank" class="text-blue-500 underline">View Resume</a>
+          </td>
+          <td class="border p-2">{{ application.matchPercentage }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

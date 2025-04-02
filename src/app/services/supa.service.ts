@@ -19,7 +19,7 @@ export class SupaService {
       }
     });
     console.log("supabase ",this.supabase_client);
-    // Observe authentication state
+    
     this.isAuthenticated = this.authStateSubject.asObservable();
 
     this.supabase_client.auth.getSession().then(({ data: { session } }) => {
@@ -117,22 +117,14 @@ export class SupaService {
     console.log("user Data :",userData);
 
     if (role === 'candidate') {
-      // Insert into candidates table
+     
       const { error } = await this.supabase_client.from('candidates').upsert(userData);
       if (error) throw error;
     } else if (role === 'recruiter') {
-      // Additional recruiter-specific fields
+      
       const recruiterData = {
         ...userData,
-        // company_name: user.user_metadata['company_name'] || '',
-        // company_website: user.user_metadata['company_website'] || '',
-        // industry: user.user_metadata['industry'] || '',
-        // company_description: user.user_metadata['company_description'] || '',
-        // phone_number: user.user_metadata['phone_number'] || '',
-        // company_address: user.user_metadata['company_address'] || '',
-        // number_of_employees: user.user_metadata['number_of_employees'] || null,
-        // headquarters_location: user.user_metadata['headquarters_location'] || '',
-        // company_logo_url: user.user_metadata['company_logo_url'] || '',
+        
       };
 
       console.log("Recruiter Data:", recruiterData);
