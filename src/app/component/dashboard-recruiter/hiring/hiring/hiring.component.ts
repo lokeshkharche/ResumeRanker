@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { JobService } from 'src/app/services/job.service';
 import { SupaService } from 'src/app/services/supa.service';
 
@@ -16,7 +17,11 @@ export class HiringComponent {
   selectedJobId: string | null = null;
   showApplicationsModal: boolean = false;
 
-  constructor(private fb: FormBuilder, private jobService: JobService, private supabase: SupaService) {
+  constructor(private fb: FormBuilder,
+      private jobService: JobService,
+      private supabase: SupaService,
+      private router: Router, 
+    ) {
     this.getJobs();
     this.jobForm = this.fb.group({
       title: ['', Validators.required],
@@ -73,10 +78,18 @@ export class HiringComponent {
     try {
       this.selectedJobId = jobId;
       this.applications = await this.jobService.getApplicationsForJob(jobId);
+      console.log("This Applications :",this.applications);
       this.showApplicationsModal = true;
+      console.log("Application :",this.applications);
     } catch (error) {
       console.error("Error fetching applications:", error);
     }
+  }
+
+  async goToATS(){
+    this.router.navigate(['recruiter-dashboard/ATS'], {
+      state: { jobId: this.selectedJobId, applications: this.applications }
+    });
   }
 
   closeApplicationsModal() {
@@ -84,6 +97,8 @@ export class HiringComponent {
     this.selectedJobId = null;
     this.applications = [];
   }
+
+  
 
   async getRecruiterJobs() {
     const user = await this.supabase.getCurrentUser();  

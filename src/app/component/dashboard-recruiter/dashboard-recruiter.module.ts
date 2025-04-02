@@ -6,12 +6,14 @@ import { DashboardRecruiterComponent } from './dashboard-recruiter.component';
 import { DashboardRecruiterRoutingModule } from './dashboard-recruiter-routing.module';
 import { RouterModule } from '@angular/router';
 import { HiringComponent } from './hiring/hiring/hiring.component';
+import { ATSComponent } from './ATS/ats/ats.component';
 
 @NgModule({
   declarations: [
     DashboardRecruiterComponent,
     ProfileRecruiterComponent,
-    HiringComponent
+    HiringComponent,
+    ATSComponent
   ],
   imports: [
     CommonModule,

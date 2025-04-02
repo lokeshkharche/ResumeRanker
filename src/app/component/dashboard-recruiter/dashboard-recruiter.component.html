@@ -19,14 +19,14 @@
   
       
       <main class="flex-1 p-6 bg-gray-100 overflow-auto">
-        <div *ngIf="isProfileIncomplete" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 mb-4">
+        <div *ngIf="!isProfileIncomplete" class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-900 p-4 mb-4">
           <p class="font-semibold">Your profile is incomplete!</p>
           <p>Please complete your profile to get better job matches.</p>
           <button (click)="goToProfile()" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">
             Complete Profile
           </button>
         </div>        
-        <ng-container *ngIf="!isProfileIncomplete">
+        <ng-container *ngIf="isProfileIncomplete">
           <router-outlet></router-outlet> 
         </ng-container>
       </main>
