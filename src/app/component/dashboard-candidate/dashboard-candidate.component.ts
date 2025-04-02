@@ -8,14 +8,14 @@ import { SupaService } from 'src/app/services/supa.service';
   templateUrl: './dashboard-candidate.component.html',
   styleUrls: ['./dashboard-candidate.component.css'],
 })
-
 export class DashboardCandidateComponent {
   currentUser: any;
   isProfileIncomplete: boolean = false;
+
   constructor(
     private supaService: SupaService,
     private router: Router,
-    private toastr: ToastrService,
+    private toastr: ToastrService
   ) {}
 
   async ngOnInit() {
@@ -34,25 +34,25 @@ export class DashboardCandidateComponent {
   }
 
   checkProfileCompletion() {
-    if (!this.currentUser) return;
-
-    const {  phone_number, skills } = this.currentUser.user_metadata;
-
-    if (  !phone_number || !skills || skills.length === 0) {
+    if (!this.currentUser || !this.currentUser.user_metadata) {
       this.isProfileIncomplete = true;
+      return;
     }
+
+    const { phone_number, skills } = this.currentUser.user_metadata;
+    this.isProfileIncomplete = !phone_number || !skills || skills.length === 0;
   }
 
   goToProfile() {
-    this.isProfileIncomplete = false;
-    this.router.navigate(['candidate-dashboard/profile']); 
+    this.router.navigate(['candidate-dashboard/profile']);
   }
-  
+
   async logout() {
     await this.supaService.signOut();
-    this.router.navigate(['/login']); 
+    this.router.navigate(['/login']);
   }
-  goToJob(){
-    this.router.navigate(['candidate-dashboard/job']); 
+
+  goToJob() {
+    this.router.navigate(['candidate-dashboard/job']);
   }
 }

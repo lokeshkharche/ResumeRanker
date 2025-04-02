@@ -1,62 +1,144 @@
-<div *ngIf="userData; else loading" class="p-6 bg-white rounded-lg shadow-md">
-  <h2 class="text-2xl font-bold mb-4">Candidate Profile</h2>
+<div *ngIf="userData; else loading" class="p-8 bg-white rounded-lg shadow-lg  mx-auto my-8">
+  <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-3">Candidate Profile</h2>
 
-  <form #profileForm="ngForm" (ngSubmit)="saveChanges()">
-   
-    <label><strong>Full Name:</strong></label>
-    <input name="fullname" [(ngModel)]="updatedUserData.fullname" class="border p-2 w-full rounded" required />
+  <form #profileForm="ngForm" (ngSubmit)="saveChanges()" class="space-y-6">
+    <!-- Personal Information Section -->
+    <div class="bg-gray-50 p-4 rounded-md">
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">Personal Information</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Full Name:</label>
+          <input name="fullname" [(ngModel)]="updatedUserData.fullname" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" required />
+        </div>
 
-    <label><strong>Email:</strong></label>
-    <input name="email" [(ngModel)]="updatedUserData.email" class="border p-2 w-full rounded" disabled />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Email:</label>
+          <input name="email" [(ngModel)]="updatedUserData.email" 
+                class="border border-gray-300 p-2 w-full rounded-md bg-gray-100 text-gray-600" disabled />
+        </div>
 
-    <label><strong>Phone Number:</strong></label>
-    <input name="phone_number" [(ngModel)]="updatedUserData.phone_number" class="border p-2 w-full rounded" required />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Phone Number:</label>
+          <input name="phone_number" [(ngModel)]="updatedUserData.phone_number" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" required />
+        </div>
 
-    <label><strong>Address:</strong></label>
-    <input name="address" [(ngModel)]="updatedUserData.address" class="border p-2 w-full rounded" />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Address:</label>
+          <input name="address" [(ngModel)]="updatedUserData.address" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+      </div>
+    </div>
 
-    <label><strong>LinkedIn Profile:</strong></label>
-    <input name="linkedin_profile" [(ngModel)]="updatedUserData.linkedin_profile" class="border p-2 w-full rounded" />
+    <!-- Professional Information Section -->
+    <div class="bg-gray-50 p-4 rounded-md">
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">Professional Information</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">LinkedIn Profile:</label>
+          <input name="linkedin_profile" [(ngModel)]="updatedUserData.linkedin_profile" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
 
-    <label><strong>Portfolio:</strong></label>
-    <input name="portfolio" [(ngModel)]="updatedUserData.portfolio" class="border p-2 w-full rounded" />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Portfolio:</label>
+          <input name="portfolio" [(ngModel)]="updatedUserData.portfolio" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
 
-    <label><strong>Preferred Job Role:</strong></label>
-    <input name="preferred_job_role" [(ngModel)]="updatedUserData.preferred_job_role" class="border p-2 w-full rounded" />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Preferred Job Role:</label>
+          <input name="preferred_job_role" [(ngModel)]="updatedUserData.preferred_job_role" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
 
-    <label><strong>Expected Salary Range:</strong></label>
-    <input name="expected_salary_range" [(ngModel)]="updatedUserData.expected_salary_range" class="border p-2 w-full rounded" />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Expected Salary Range:</label>
+          <input name="expected_salary_range" [(ngModel)]="updatedUserData.expected_salary_range" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
+        </div>
+      </div>
+    </div>
 
-    <label><strong>Skills:</strong></label>
-    <input name="skills" [(ngModel)]="updatedUserData.skills" class="border p-2 w-full rounded" placeholder="Comma-separated values" />
+    <!-- Skills & Qualifications Section -->
+    <div class="bg-gray-50 p-4 rounded-md">
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">Skills & Qualifications</h3>
+      <div class="space-y-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Skills:</label>
+          <input name="skills" [(ngModel)]="updatedUserData.skills" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                placeholder="Comma-separated values" />
+        </div>
 
-    <label><strong>Education:</strong></label>
-    <textarea name="education" [(ngModel)]="updatedUserData.education" class="border p-2 w-full rounded"></textarea>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Education:</label>
+          <textarea name="education" [(ngModel)]="updatedUserData.education" 
+                  class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all h-24"></textarea>
+        </div>
 
-    <label><strong>Work Experience:</strong></label>
-    <textarea name="work_experience" [(ngModel)]="updatedUserData.work_experience" class="border p-2 w-full rounded"></textarea>
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Work Experience:</label>
+          <textarea name="work_experience" [(ngModel)]="updatedUserData.work_experience" 
+                  class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all h-32"></textarea>
+        </div>
 
-    <label><strong>Certifications:</strong></label>
-    <input name="certifications" [(ngModel)]="updatedUserData.certifications" class="border p-2 w-full rounded" placeholder="Comma-separated values" />
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Certifications:</label>
+          <input name="certifications" [(ngModel)]="updatedUserData.certifications" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                placeholder="Comma-separated values" />
+        </div>
+      </div>
+    </div>
 
-    <!-- Resume -->
-    <label><strong>Upload Resume (PDF):</strong></label>
-<input type="file" (change)="onFileSelected($event)" class="border p-2 w-full rounded" accept="application/pdf" />
+    <!-- Resume Section -->
+    <div class="bg-gray-50 p-4 rounded-md">
+      <h3 class="text-xl font-semibold mb-4 text-gray-700">Resume</h3>
+      <div class="space-y-4">
+        <div class="space-y-2">
+          <label class="block text-sm font-medium text-gray-700">Upload Resume (PDF):</label>
+          <input type="file" (change)="onFileSelected($event)" 
+                class="border border-gray-300 p-2 w-full rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" 
+                accept="application/pdf" />
+        </div>
 
-<!-- Upload Button -->
-<button (click)="uploadResume()" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">Upload</button>
+        <div class="flex flex-wrap gap-3">
+          <button (click)="uploadResume()" 
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-300">
+            Upload
+          </button>
 
-<!-- View Resume Button (Only Visible If Resume Exists) -->
-<div *ngIf="getResumeUrl()">
-  <a [href]="getResumeUrl()" target="_blank" class="bg-green-600 text-white px-4 py-2 rounded mt-4 inline-block">
-    View Resume
-  </a>
-</div>
-    <!-- Buttons -->
-    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded mt-4">Save Changes</button>
+          <div *ngIf="getResumeUrl()">
+            <a [href]="getResumeUrl()" target="_blank" 
+               class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md transition-colors inline-block focus:outline-none focus:ring-2 focus:ring-green-300">
+              View Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end">
+      <button type="submit" 
+              class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-green-300">
+        Save Changes
+      </button>
+    </div>
   </form>
 </div>
 
 <ng-template #loading>
-  <p class="text-gray-500">Loading candidate details...</p>
+  <div class="flex justify-center items-center h-64">
+    <div class="text-center">
+      <svg class="animate-spin h-10 w-10 mx-auto text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+      <p class="mt-4 text-gray-600 font-medium">Loading candidate details...</p>
+    </div>
+  </div>
 </ng-template>

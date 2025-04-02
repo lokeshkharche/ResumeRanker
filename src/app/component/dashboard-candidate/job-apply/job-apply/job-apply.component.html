@@ -1,38 +1,33 @@
 <table class="w-full border-collapse border border-gray-300">
-    <thead>
-      <tr class="bg-gray-200">
-        <th class="border p-2">Job Title</th>
-        <!-- <th class="border p-2">Description</th> -->
-        <th class="border p-2">Location</th>
-        <th class="border p-2">Salary</th>
-        <th class="border p-2">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let job of jobs">
-        <td class="border p-2 font-medium">{{ job.title }}</td>
-        <!-- <td class="border p-2">{{ job.description }}</td> -->
-        <td class="border p-2">{{ job.location }}</td>
-        <td class="border p-2">{{ job.salary ? job.salary : 'N/A' }}</td>
-        <td class="border p-2 text-center">
-          <form *ngIf="!job.hasApplied" (submit)="applyForJob(job.id, $event)">
-            <div class="mb-2">
-              <input type="checkbox" name="defaultResume" id="defaultResume{{ job.id }}" class="mr-2">
-              <label for="defaultResume{{ job.id }}" class="text-gray-700">Use Default Resume</label>
-            </div>
-  
-            <div class="mb-2">
-              <label class="block text-gray-700">Or Upload New Resume:</label>
-              <input type="file" class="border p-2 rounded-md" accept=".pdf,.doc,.docx">
-            </div>
-  
-            <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 transition">
-              Apply
-            </button>
-          </form>
-          <p *ngIf="job.hasApplied" class="text-green-600 font-medium">Already Applied</p>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="border p-2">Job Title</th>
+      <th class="border p-2">Location</th>
+      <th class="border p-2">Salary</th>
+      <th class="border p-2">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let job of jobs">
+      <td class="border p-2 font-medium">{{ job.title }}</td>
+      <td class="border p-2">{{ job.location }}</td>
+      <td class="border p-2">{{ job.salary ? job.salary : 'N/A' }}</td>
+      <td class="border p-2 text-center">
+        <form *ngIf="!job.hasApplied" (submit)="applyForJob(job.id, $event)">
+          <div class="mb-2">
+            <input type="checkbox" name="defaultResume" id="defaultResume{{ job.id }}" class="mr-2">
+            <label for="defaultResume{{ job.id }}" class="text-gray-700">Use Default Resume</label>
+          </div>
+          <div class="mb-2">
+            <label class="block text-gray-700">Or Upload New Resume:</label>
+            <input type="file" class="border p-2 rounded-md" accept=".pdf,.doc,.docx">
+          </div>
+          <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 transition">
+            Apply
+          </button>
+        </form>
+        <p *ngIf="job.hasApplied" class="text-green-600 font-medium">Already Applied</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
