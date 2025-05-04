@@ -1,33 +1,163 @@
-<table class="w-full border-collapse border border-gray-300">
-  <thead>
-    <tr class="bg-gray-200">
-      <th class="border p-2">Job Title</th>
-      <th class="border p-2">Location</th>
-      <th class="border p-2">Salary</th>
-      <th class="border p-2">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let job of jobs">
-      <td class="border p-2 font-medium">{{ job.title }}</td>
-      <td class="border p-2">{{ job.location }}</td>
-      <td class="border p-2">{{ job.salary ? job.salary : 'N/A' }}</td>
-      <td class="border p-2 text-center">
+<div class="max-w-6xl mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Available Opportunities</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-6">
+    <div *ngFor="let job of jobs" class="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition duration-300 flex flex-col">
+      <!-- Job Header -->
+      <div class="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200">
+        <div class="flex items-center mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <h2 class="text-xl font-semibold text-gray-800">{{ job.title }}</h2>
+        </div>
+        
+        <div class="flex items-center text-gray-600 mb-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>{{ job.location }}</span>
+        </div>
+        
+        <div class="flex items-center text-gray-600 mb-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{{ job.salary ? '₹' + job.salary.toLocaleString() + '/month' : 'Salary not specified' }}</span>
+        </div>
+        
+        <!-- Description Preview -->
+        <div class="text-gray-700 text-sm">
+          <p class="line-clamp-3">{{ job.description }}</p>
+          <button 
+            (click)="openJobDetails(job)" 
+            class="text-indigo-600 hover:text-indigo-800 text-sm font-medium mt-2 inline-flex items-center"
+          >
+            View More
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Application Form -->
+      <div class="p-6 flex-grow">
         <form *ngIf="!job.hasApplied" (submit)="applyForJob(job.id, $event)">
-          <div class="mb-2">
-            <input type="checkbox" name="defaultResume" id="defaultResume{{ job.id }}" class="mr-2">
-            <label for="defaultResume{{ job.id }}" class="text-gray-700">Use Default Resume</label>
+          <div class="mb-4">
+            <div class="flex items-center mb-3">
+              <input 
+                type="checkbox" 
+                name="defaultResume" 
+                id="defaultResume{{ job.id }}" 
+                class="form-checkbox h-4 w-4 text-indigo-600 rounded mr-2"
+              >
+              <label for="defaultResume{{ job.id }}" class="text-gray-700">
+                Use Default Resume
+              </label>
+            </div>
+            
+            <div class="mb-2">
+              <label class="block text-gray-700 mb-1 text-sm">Or Upload New Resume:</label>
+              <div class="flex items-center w-full">
+                <label class="w-full flex items-center justify-center border border-gray-300 border-dashed rounded-lg py-3 px-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                  </svg>
+                  <span class="text-sm text-gray-500">Choose PDF, DOC or DOCX</span>
+                  <input type="file" class="hidden" accept=".pdf,.doc,.docx">
+                </label>
+              </div>
+            </div>
           </div>
-          <div class="mb-2">
-            <label class="block text-gray-700">Or Upload New Resume:</label>
-            <input type="file" class="border p-2 rounded-md" accept=".pdf,.doc,.docx">
-          </div>
-          <button type="submit" class="bg-green-500 text-white px-4 py-1 rounded-md hover:bg-green-600 transition">
-            Apply
+          
+          <button 
+            type="submit" 
+            class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-300 flex items-center justify-center"
+          >
+            Apply Now
           </button>
         </form>
-        <p *ngIf="job.hasApplied" class="text-green-600 font-medium">Already Applied</p>
-      </td>
-    </tr>
-  </tbody>
-</table>
+
+        <!-- Already Applied State -->
+        <div *ngIf="job.hasApplied" class="h-full flex flex-col items-center justify-center text-center p-4">
+          <div class="bg-green-100 rounded-full p-3 mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <p class="text-green-600 font-medium mb-1">Application Submitted</p>
+          <p class="text-gray-500 text-sm">We've received your application</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Job Details Modal -->
+<div *ngIf="selectedJob" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-screen overflow-y-auto">
+    <!-- Modal Header -->
+    <div class="border-b border-gray-200 px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50">
+      <div class="flex justify-between items-center">
+        <h3 class="text-2xl font-bold text-gray-800">{{ selectedJob.title }}</h3>
+        <button (click)="closeJobDetails()" class="text-gray-500 hover:text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Modal Body -->
+    <div class="px-6 py-4">
+      <div class="flex flex-wrap gap-4 mb-4">
+        <div class="flex items-center text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>{{ selectedJob.location }}</span>
+        </div>
+        
+        <div class="flex items-center text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{{ selectedJob.salary ? '₹' + selectedJob.salary.toLocaleString() + '/month' : 'Salary not specified' }}</span>
+        </div>
+        
+        <div class="flex items-center text-gray-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span>Posted: {{ selectedJob.created_at | date:'mediumDate' }}</span>
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <h4 class="text-lg font-semibold text-gray-800 mb-2">Job Description</h4>
+        <div class="text-gray-700 whitespace-pre-line">{{ selectedJob.description }}</div>
+      </div>
+      
+      <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+        <div *ngIf="!selectedJob.hasApplied" class="flex justify-between items-center">
+          <span class="text-gray-700 font-medium">Ready to apply?</span>
+          <button 
+            (click)="applyForJob(selectedJob.id, $event)" 
+            class="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition"
+          >
+            Apply Now
+          </button>
+        </div>
+        <div *ngIf="selectedJob.hasApplied" class="flex items-center text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span class="font-medium">You have already applied for this position</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

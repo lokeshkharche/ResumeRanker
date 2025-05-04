@@ -1,0 +1,291 @@
+<div class="max-w-7xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
+    <!-- Main content container with two-column layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 min-h-screen">
+      
+      <!-- Left sidebar with company list -->
+      <div class="lg:col-span-1 bg-gray-50 border-r border-gray-200 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-gray-800">Companies</h2>
+          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">{{ companies.length }} Available</span>
+        </div>
+        
+        
+        <div class="relative mb-6">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <input type="text" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5" placeholder="Search companies...">
+        </div>
+        
+        <!-- Industry filter -->
+        <!-- <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">Filter by Industry</label>
+          <select class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <option selected>All Industries</option>
+            <option>Technology</option>
+            <option>Finance</option>
+            <option>Healthcare</option>
+            <option>Education</option>
+            <option>Manufacturing</option>
+          </select>
+        </div> -->
+        
+        <!-- Enhanced Company List -->
+        <div class="overflow-y-auto max-h-[calc(100vh-260px)] pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <ul class="space-y-3">
+            <li 
+              *ngFor="let company of companies" 
+              (click)="onSelectCompany(company)" 
+              class="p-4 border border-gray-200 rounded-xl hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer flex items-center space-x-4"
+              [ngClass]="{'bg-blue-50 border-blue-200': selectedCompany?.id === company.id}"
+            >
+              <div class="flex-shrink-0 h-14 w-14 bg-gray-100 rounded-lg overflow-hidden border border-gray-200 flex items-center justify-center p-1">
+                <img [src]="company.company_logo_url" alt="Logo" class="max-h-full max-w-full object-contain">
+              </div>
+              
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-gray-900 truncate">{{ company.company_name }}</div>
+                <div class="flex items-center text-sm text-gray-500 mt-1">
+                  <svg class="flex-shrink-0 mr-1.5 h-4 w-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                  <span class="truncate">{{ company.industry }}</span>
+                </div>
+                <div class="flex items-center mt-1.5">
+                  <span class="flex items-center text-xs text-blue-600 font-medium">
+                    <svg class="w-3 h-3 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                    {{ company.jobCount || 5 }} Open Positions
+                  </span>
+                </div>
+              </div>
+              
+              <!-- Arrow indicator -->
+              <svg class="w-5 h-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Right content area with company details and jobs -->
+      <div class="lg:col-span-2 p-6 overflow-y-auto max-h-screen">
+        
+        <!-- Empty state when no company is selected -->
+        <div *ngIf="!selectedCompany" class="h-full flex flex-col items-center justify-center text-center p-8 text-gray-500">
+          <div class="bg-gray-100 p-6 rounded-full mb-4">
+            <svg class="w-16 h-16 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-medium text-gray-700 mb-2">No Company Selected</h3>
+          <p class="max-w-sm">Select a company from the list to view details and job openings</p>
+        </div>
+        
+        <!-- Company details and jobs when selected -->
+        <div *ngIf="selectedCompany" class="space-y-8">
+          
+          <!-- Company header with enhanced details -->
+          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+            <div class="flex flex-col md:flex-row md:items-center">
+              <div class="flex-shrink-0 h-20 w-20 bg-white rounded-lg overflow-hidden border border-gray-200 flex items-center justify-center p-2 mb-4 md:mb-0 md:mr-6">
+                <img [src]="selectedCompany.company_logo_url" alt="Company Logo" class="max-h-full max-w-full object-contain">
+              </div>
+              
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-2xl font-bold text-gray-900">{{ selectedCompany.company_name }}</h3>
+                  <button class="text-blue-600 hover:text-blue-800 focus:outline-none">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                    </svg>
+                  </button>
+                </div>
+                
+                <div class="flex flex-wrap items-center gap-4 mt-2">
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-1 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                    <span class="text-sm">{{ selectedCompany.industry }}</span>
+                  </div>
+                  
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-1 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span class="text-sm">{{ selectedCompany.company_address }}</span>
+                  </div>
+                  
+                  <div class="flex items-center text-gray-600">
+                    <svg class="w-4 h-4 mr-1 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                    <a [href]="'https://' + selectedCompany.company_website" target="_blank" class="text-sm text-blue-600 hover:underline">
+                      {{ selectedCompany.company_website }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Company description -->
+            <div class="mt-6 bg-white p-4 rounded-lg border border-gray-100">
+              <h4 class="text-sm font-medium text-gray-700 mb-2">About the Company</h4>
+              <p class="text-gray-600 text-sm">{{ selectedCompany.company_description }}</p>
+            </div>
+            
+            <!-- Company stats -->
+            <div class="grid grid-cols-3 gap-4 mt-4">
+              <div class="bg-white rounded-lg p-3 text-center border border-gray-100">
+                <div class="text-2xl font-bold text-indigo-600">{{ selectedCompany.foundedYear || '2010' }}</div>
+                <div class="text-xs text-gray-500">Founded</div>
+              </div>
+              <div class="bg-white rounded-lg p-3 text-center border border-gray-100">
+                <div class="text-2xl font-bold text-indigo-600">{{ selectedCompany.employeeCount || '250+' }}</div>
+                <div class="text-xs text-gray-500">Employees</div>
+              </div>
+              <div class="bg-white rounded-lg p-3 text-center border border-gray-100">
+                <div class="text-2xl font-bold text-indigo-600">{{ selectedCompany.jobCount || jobs.length }}</div>
+                <div class="text-xs text-gray-500">Open Jobs</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Job Listings Section -->
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xl font-bold text-gray-800">Open Positions</h3>
+              <div class="flex items-center space-x-2">
+                <span class="text-sm text-gray-600">Sort by:</span>
+                <select class="text-sm border-gray-300 rounded-md">
+                  <option>Newest</option>
+                  <option>Salary: High to Low</option>
+                  <option>Salary: Low to High</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- No jobs message -->
+            <div *ngIf="jobs.length === 0" class="bg-yellow-50 border border-yellow-100 text-yellow-700 px-4 py-5 rounded-lg flex items-center">
+              <svg class="w-6 h-6 text-yellow-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span>No open positions available at this time. Check back later!</span>
+            </div>
+            
+            <!-- Enhanced Job Cards -->
+            <div class="grid grid-cols-1 xl:grid-cols-1 gap-4">
+              <div *ngFor="let job of jobs" class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300">
+                <!-- Job Header -->
+                <div class="p-5 border-b border-gray-100">
+                  <div class="flex justify-between items-start">
+                    <div>
+                      <h4 class="text-lg font-bold text-gray-800">{{ job.title }}</h4>
+                      
+                      <div class="flex flex-wrap items-center gap-3 mt-2">
+                        <div class="flex items-center text-gray-600">
+                          <svg class="w-4 h-4 mr-1 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                          <span class="text-sm">{{ job.location }}</span>
+                        </div>
+                        
+                        <div class="flex items-center text-green-600">
+                          <svg class="w-4 h-4 mr-1 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                          <span class="text-sm font-medium">₹{{ job.salary }}/month</span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                      <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Full-time</span>
+                      <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Remote</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Job description with read more toggle -->
+                  <div class="mt-3 text-sm text-gray-600">
+                    <p class="line-clamp-2">{{ job.description }}</p>
+                    <button class="text-blue-600 text-sm font-medium mt-1 hover:text-blue-800 focus:outline-none inline-flex items-center">
+                      View Details
+                      <svg class="w-3 h-3 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  <!-- Skills tags -->
+                  <!-- <div class="mt-3 flex flex-wrap gap-2">
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">React</span>
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">TypeScript</span>
+                    <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded">Node.js</span>
+                  </div> -->
+                </div>
+                
+                <!-- Application Section -->
+                <div class="bg-gray-50 p-5">
+                  <!-- Not applied state -->
+                  <form *ngIf="!job.hasApplied" (submit)="applyForJob(job.id, $event)" class="space-y-3">
+                    <div class="flex items-center p-2.5 bg-white rounded-lg border border-gray-200">
+                      <input 
+                        type="checkbox" 
+                        name="defaultResume{{ job.id }}" 
+                        id="defaultResume{{ job.id }}" 
+                        class="form-checkbox h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                      >
+                      <label for="defaultResume{{ job.id }}" class="ml-2 text-gray-700 text-sm">
+                        Use my default resume
+                      </label>
+                    </div>
+                    
+                    <div class="w-full border border-gray-200 border-dashed rounded-lg p-3 bg-white cursor-pointer hover:bg-gray-50 transition text-center">
+                      <div class="flex items-center justify-center">
+                        <svg class="w-4 h-4 mr-2 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                        </svg>
+                        <span class="text-xs text-gray-500">Upload resume (PDF, DOC, DOCX)</span>
+                        <input type="file" class="hidden" accept=".pdf,.doc,.docx">
+                      </div>
+                    </div>
+                    
+                    <button 
+                      type="submit" 
+                      class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 flex items-center justify-center"
+                    >
+                      Apply Now
+                    </button>
+                  </form>
+                  
+                  <!-- Applied state -->
+                  <div *ngIf="job.hasApplied" class="flex flex-col items-center justify-center text-center p-3">
+                    <div class="bg-green-100 rounded-full p-2 mb-2">
+                      <svg class="w-5 h-5 text-green-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p class="text-green-600 font-medium text-sm mb-1">Application Submitted</p>
+                    <p class="text-gray-500 text-xs">Your application is under review</p>
+                  </div>
+                </div>
+                
+                <!-- Job footer with posting date -->
+                <div class="px-5 py-2 bg-gray-50 border-t border-gray-200 flex justify-between items-center text-xs text-gray-500">
+                  <span>Posted: {{ job.created_at | date: 'mediumDate' }}</span>
+                  <span>{{ job.applicantCount || '12' }} applicants</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

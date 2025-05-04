@@ -100,6 +100,17 @@ export class ProfileService {
     
     return data;
   }
+
+  async getCompany(){
+    const {data, error}= await this.supabase_client
+      .from('recruiters')
+      .select("*");
+    if (error){
+      console.error("Error fetching recruiters :",error);
+    }
+    console.log("Companydata: ",data);
+    return data;
+  }
   
   async updateRecruiterDetails(userId: string, updatedData: any) {
     const { data, error } = await this.supabase_client

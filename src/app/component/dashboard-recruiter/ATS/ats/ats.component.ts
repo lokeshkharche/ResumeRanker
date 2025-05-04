@@ -1,67 +1,66 @@
-import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JobService } from 'src/app/services/job.service';
-import { SupaService } from 'src/app/services/supa.service';
-
-interface JobApplication {
-  matchPercentage: number;
-  // Add other properties if needed
-}
-
 
 @Component({
   selector: 'app-ats',
   templateUrl: './ats.component.html',
   styleUrls: ['./ats.component.css']
 })
-export class ATSComponent {
-    jobs: any[] = [];
-    applications: any;
-    selectedJobId: string | null = null;
-    jobId: string | null = null;
-    minMatchPercentage: number = 0;
-    jobDescription: any ;
-    filteredApplications: any[] = [];
+export class ATSComponent implements OnInit {
+  
+  jobId: string | null = null;
+  applications: any[] = [];
+  filteredApplications: any[] = [];
+  minMatchPercentage: number = 0;
+  filterApplied: boolean = false;
 
-  constructor(private fb: FormBuilder,
-    private jobService: JobService, 
-  ) {}
+  constructor(private router: Router) {}
 
-  async  ngOnInit() {
-    const state = window.history.state;
+  ngOnInit(): void {
+    const state = history.state;
     this.jobId = state.jobId || null;
     this.applications = state.applications || [];
-    console.log("Received job ID:", this.jobId);
-    console.log("Received applications:", this.applications);
-    console.log("Received applications:", this.applications[0].resume_summary);
-    
-      await this.getJobDescription();
-      await this.getMatchingPercentages();
-    
-  }
 
-  async getJobDescription() {
-    this.jobDescription = await this.jobService.getJobsById(this.jobId!);
-     
-    console.log("jobDescription:",this.jobDescription[0].description);
-  }
+    // Initialize filtered applications to show all applications initially
+    this.filteredApplications = [...this.applications];
+    
+    console.log('Job ID:', this.jobId);
+    console.log('Applications:', this.applications);
 
-  async getMatchingPercentages() {
-    for (let application of this.applications) {
-      if (application.resume_summary) {  
-        const matchPercentage = await this.jobService.getResumeMatch(this.jobDescription[0].description, application.resume_summary);
-        application.matchPercentage = matchPercentage;
-        console.log(`Match Percentage for application:`, matchPercentage);
-      } else {
-        console.warn("Skipping application due to missing resume summary.");
-        application.matchPercentage = 0;
+    // Parse resume summaries if available
+    this.applications.forEach(app => {
+      if (app.resume_summary) {
+        try {
+          const resumeSummaryObj = JSON.parse(app.resume_summary);
+          app.parsedResumeSummary = resumeSummaryObj.data?.text || '';
+        } catch (e) {
+          console.error('Error parsing resume summary:', e);
+          app.parsedResumeSummary = '';
+        }
       }
-    }
-    this.filterCandidates();
+    });
   }
-  
-  filterCandidates() {
-    this.filteredApplications = this.applications.filter((app: JobApplication) => app.matchPercentage >= this.minMatchPercentage);
+
+  filterCandidates(): void {
+    this.filterApplied = true;
+    this.filteredApplications = this.applications.filter(app => 
+      app.overall_match_score >= this.minMatchPercentage
+    );
+  }
+
+  resetFilter(): void {
+    this.filterApplied = false;
+    this.minMatchPercentage = 0;
+    this.filteredApplications = [...this.applications];
+  }
+
+  sendMailToFilteredCandidates() {
+    const candidateIds = this.filteredApplications.map(app => app.candidate_id);
+    this.router.navigate(['recruiter-dashboard/compose-mail'], {
+      state: {
+        candidateIds: candidateIds,
+        jobId: this.jobId
+      }
+    });
   }
 }

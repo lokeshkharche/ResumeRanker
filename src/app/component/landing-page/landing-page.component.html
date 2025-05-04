@@ -1,38 +1,50 @@
 <!-- landing-page.component.html -->
-<!-- <nav class="bg-blue-500 p-4">
-    <div class="container mx-auto flex justify-between items-center">
-      <div class="text-white text-2xl font-bold">
-        <a href="#">Resume Ranker</a>
-      </div>
-      <div>
-        <button 
-          class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded mr-4"
-          (click)="goToLogin()">
-          Login
-        </button>
-        <button 
-          class="text-white bg-green-700 hover:bg-green-800 px-4 py-2 rounded"
-          (click)="goToRegister()">
-          Register
-        </button>
-      </div>
-    </div>
-  </nav> -->
-  <!-- Landing Page for Resume Ranker -->
-<!-- landing-page.component.html -->
-<nav class="bg-blue-500 p-4 shadow-md fixed w-full z-50">
+<nav class="bg-gradient-to-r from-blue-700 to-indigo-900 p-4 shadow-xl fixed w-full z-50 backdrop-filter backdrop-blur-sm bg-opacity-90">
   <div class="container mx-auto flex justify-between items-center">
-    <div class="text-white text-2xl font-bold">
-      <a href="#">Resume Ranker</a>
+    <div class="text-white text-2xl font-bold flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-2 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <a href="#" class="hover:text-blue-200 transition duration-300 flex items-center">
+        Resume<span class="text-blue-300 font-extrabold">Ranker</span>
+      </a>
     </div>
-    <div>
+    <div class="hidden md:flex space-x-6 text-white font-medium">
+      <a href="#home" class="hover:text-blue-300 transition duration-300">Home</a>
+      <a href="#features" class="hover:text-blue-300 transition duration-300">Features</a>
+      <a href="#how-it-works" class="hover:text-blue-300 transition duration-300">How It Works</a>
+      <a href="#testimonials" class="hover:text-blue-300 transition duration-300">Testimonials</a>
+      <a href="#pricing" class="hover:text-blue-300 transition duration-300">Pricing</a>
+    </div>
+    <div class="flex items-center">
       <button 
-        class="text-white bg-blue-700 hover:bg-blue-800 px-4 py-2 rounded mr-4"
+        class="text-white bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-lg mr-3 transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transform hover:-translate-y-1"
         (click)="goToLogin()">
         Login
       </button>
       <button 
-        class="text-white bg-green-700 hover:bg-green-800 px-4 py-2 rounded"
+        class="hidden sm:block text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-5 py-2 rounded-lg transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400 transform hover:-translate-y-1"
+        (click)="goToRegister()">
+        Register
+      </button>
+      <button class="ml-4 text-white md:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div class="md:hidden bg-indigo-900 mt-4 p-4 rounded-lg shadow-lg transition-all duration-300 ease-in-out" >
+    <div class="flex flex-col space-y-3 text-white font-medium">
+      <a href="#home" class="hover:text-blue-300 transition duration-300 py-2 px-4 hover:bg-indigo-800 rounded-lg">Home</a>
+      <a href="#features" class="hover:text-blue-300 transition duration-300 py-2 px-4 hover:bg-indigo-800 rounded-lg">Features</a>
+      <a href="#how-it-works" class="hover:text-blue-300 transition duration-300 py-2 px-4 hover:bg-indigo-800 rounded-lg">How It Works</a>
+      <a href="#testimonials" class="hover:text-blue-300 transition duration-300 py-2 px-4 hover:bg-indigo-800 rounded-lg">Testimonials</a>
+      <a href="#pricing" class="hover:text-blue-300 transition duration-300 py-2 px-4 hover:bg-indigo-800 rounded-lg">Pricing</a>
+      <button 
+        class="sm:hidden text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 px-5 py-2 rounded-lg transition duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-purple-400"
         (click)="goToRegister()">
         Register
       </button>
@@ -40,65 +52,586 @@
   </div>
 </nav>
 
-<!-- Header Section -->
-<header id="home" class="min-h-screen flex items-center justify-center parallax"
-  style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x900/?technology,office');">
-  <div class="text-center text-white">
-    <h1 class="text-6xl font-extrabold mb-4 glitch-text">
-      Resume Ranker
-      <span>Resume Ranker</span>
-      <span>Resume Ranker</span>
-    </h1>
-    <p class="text-xl mb-8">Find the best job or the top talent effortlessly</p>
-    <div class="space-x-4">
-      <button (click)="showModal('job-seeker')" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg transition">
-        Job Seeker
-      </button>
-      <button (click)="showModal('recruiter')" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-lg transition">
-        Recruiter
-      </button>
+<!-- Hero Section -->
+
+<!-- ai-resume-ranking.component.html -->
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm fixed w-full z-10">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+        <span class="text-xl font-bold text-gray-800">ResumeAI</span>
+      </div>
+      
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Solutions</a>
+        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Pricing</a>
+        <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Resources</a>
+      </div>
+      
+      <div class="flex items-center space-x-4">
+        <button class="px-4 py-2 text-blue-600 font-medium border border-blue-600 rounded-lg hover:bg-blue-50 transition-colors">
+          Log In
+        </button>
+        <button class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-md">
+          Sign Up
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="pt-24 pb-24">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-12 mt-10 mb-10">
+        <!-- Left Column - Content -->
+        <div class="md:w-1/2">
+          <div class="inline-block px-4 py-1 bg-blue-100 text-blue-600 font-medium rounded-full text-sm mb-6">
+            <div class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              AI-Powered Talent Matching
+            </div>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight">
+            AI Resume Ranking
+          </h1>
+          
+          <p class="text-lg text-gray-600 mb-8">
+            Match perfect jobs or discover top talent instantly with our AI-powered system that understands the nuances of skills, experience, and potential.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+            <button class="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors shadow-lg">
+              Get Started
+            </button>
+          </div>
+          
+          <!-- Testimonial -->
+          <div class="flex items-center">
+            <div class="flex -space-x-2 mr-4">
+              <div class="w-10 h-10 rounded-full bg-blue-200 border-2 border-white flex items-center justify-center text-xs font-medium">JD</div>
+              <div class="w-10 h-10 rounded-full bg-purple-200 border-2 border-white flex items-center justify-center text-xs font-medium">KL</div>
+              <div class="w-10 h-10 rounded-full bg-green-200 border-2 border-white flex items-center justify-center text-xs font-medium">MP</div>
+              <div class="w-10 h-10 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs font-medium">+</div>
+            </div>
+            <p class="text-sm text-gray-600">
+              Trusted by <span class="text-blue-600 font-medium">20,000+</span> recruiters and job seekers
+            </p>
+          </div>
+        </div>
+        
+        <!-- Right Column - Animated Resume Ranking Illustration -->
+        <div class="md:w-1/2 relative">
+          <!-- Decorative Elements -->
+          <div class="absolute -top-10 -right-10 w-40 h-40 bg-blue-100 rounded-full opacity-50 -z-10"></div>
+          <div class="absolute -bottom-10 -left-10 w-24 h-24 bg-indigo-100 rounded-xl opacity-50 transform rotate-45 -z-10"></div>
+          
+          <!-- Animated Resume Ranking Visual -->
+          <div class="bg-white rounded-xl shadow-xl p-6 relative z-10">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="text-lg font-semibold text-gray-800">AI Resume Ranking</h3>
+              <div class="flex items-center space-x-3">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-sm text-gray-500">Live Processing</span>
+              </div>
+            </div>
+            
+            <!-- Animated Resume Stack -->
+            <div class="relative h-64 mb-6">
+              <!-- Resume Stack -->
+              <div class="absolute left-1/2 transform -translate-x-1/2 bottom-0 w-full max-w-sm">
+                <!-- Resume 5 (Bottom) -->
+                <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-52 h-16 bg-gray-100 rounded-lg shadow-sm border border-gray-200 flex items-center px-4">
+                  <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0"></div>
+                  <div class="ml-3">
+                    <div class="h-2 w-24 bg-gray-200 rounded-full"></div>
+                    <div class="h-2 w-16 bg-gray-200 rounded-full mt-2"></div>
+                  </div>
+                </div>
+                
+                <!-- Resume 4 -->
+                <div class="absolute bottom-5 left-1/2 transform -translate-x-1/2 w-52 h-16 bg-gray-100 rounded-lg shadow-sm border border-gray-200 flex items-center px-4 animate-bounce-slow">
+                  <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0"></div>
+                  <div class="ml-3">
+                    <div class="h-2 w-24 bg-gray-200 rounded-full"></div>
+                    <div class="h-2 w-16 bg-gray-200 rounded-full mt-2"></div>
+                  </div>
+                </div>
+                
+                <!-- Resume 3 -->
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 w-52 h-16 bg-gray-100 rounded-lg shadow-sm border border-gray-200 flex items-center px-4 animate-bounce-slower">
+                  <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0"></div>
+                  <div class="ml-3">
+                    <div class="h-2 w-24 bg-gray-200 rounded-full"></div>
+                    <div class="h-2 w-16 bg-gray-200 rounded-full mt-2"></div>
+                  </div>
+                </div>
+                
+                <!-- Resume 2 -->
+                <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-52 h-16 bg-gray-100 rounded-lg shadow-sm border border-gray-200 flex items-center px-4 animate-bounce-slowest">
+                  <div class="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0"></div>
+                  <div class="ml-3">
+                    <div class="h-2 w-24 bg-gray-200 rounded-full"></div>
+                    <div class="h-2 w-16 bg-gray-200 rounded-full mt-2"></div>
+                  </div>
+                </div>
+                
+                <!-- Resume 1 (Top) -->
+                <div class="absolute bottom-44 left-1/2 transform -translate-x-1/2 w-52 h-16 bg-blue-50 rounded-lg shadow-md border border-blue-200 animate-float flex items-center px-4">
+                  <div class="w-8 h-8 rounded-full bg-blue-200 flex-shrink-0"></div>
+                  <div class="ml-3 flex-grow">
+                    <div class="h-2 w-24 bg-blue-200 rounded-full"></div>
+                    <div class="h-2 w-16 bg-blue-200 rounded-full mt-2"></div>
+                  </div>
+                  <div class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs font-medium">
+                    <span>1</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- AI Processing Lines -->
+              <div class="absolute top-0 left-0 w-full">
+                <!-- Scanning Line -->
+                <div class="h-px w-full bg-blue-400 relative animate-scan mb-10">
+                  <div class="absolute -top-1 left-0 w-4 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                  <div class="absolute -top-1 right-0 w-4 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                </div>
+                
+                <!-- Skill Match Bars -->
+                <div class="mb-4">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-gray-600">Technical Skills</span>
+                    <span class="text-xs font-medium text-blue-700">95%</span>
+                  </div>
+                  <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 rounded-full animate-skill-fill-95"></div>
+                  </div>
+                </div>
+                
+                <div class="mb-4">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-gray-600">Experience</span>
+                    <span class="text-xs font-medium text-blue-700">83%</span>
+                  </div>
+                  <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 rounded-full animate-skill-fill-83"></div>
+                  </div>
+                </div>
+                
+                <div class="mb-4">
+                  <div class="flex justify-between items-center mb-1">
+                    <span class="text-xs text-gray-600">Education</span>
+                    <span class="text-xs font-medium text-blue-700">91%</span>
+                  </div>
+                  <div class="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-500 rounded-full animate-skill-fill-91"></div>
+                  </div>
+                </div>
+                
+                <!-- Overall Score -->
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-medium text-gray-700">Overall Match Score</span>
+                  <div class="flex items-center">
+                    <div class="font-bold text-xl text-blue-600 animate-pulse">92%</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Status Indicators -->
+            <div class="flex justify-between text-sm text-gray-500">
+              <div class="flex items-center">
+                <div class="mr-1 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
+                <span>Processing Resumes</span>
+              </div>
+              <div>1 of 156 ranked</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</header>
 
-<div class="container mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-  <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md text-center card-hover">
-      <h2 class="text-2xl font-semibold text-white">For Job Seekers</h2>
-      <img src="../../../assets/image/job-seeker.svg" alt="Job Seeker" class="mx-auto my-4 w-48">
-      <p class="text-gray-700">Unlock your potential by finding the best opportunities that match your skills.</p>
-      <a href="#" onclick="showModal('job-seeker')"
-          class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg">Get Started</a>
-  </div>
-  <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md text-center card-hover">
-      <h2 class="text-2xl font-semibold text-white">For Recruiters</h2>
-      <img src="../../../assets/image/undraw_interview_yz52.svg" alt="Recruiter" class="mx-auto my-4 w-48 rounded-lg">
-      <p class="text-gray-700">Find the top talent effortlessly with our advanced resume ranking.</p>
-      <a href="#" onclick="showModal('recruiter')"
-          class="mt-4 inline-block bg-gray-700 text-white px-6 py-2 rounded-lg">Get Started</a>
+  <!-- Stats Section -->
+  <div class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Accuracy Rate -->
+        <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 text-center shadow-lg transition-transform hover:-translate-y-2 duration-300">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-xl shadow-md text-blue-600 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-4xl font-bold text-gray-800 mb-2">99%</h3>
+          <p class="text-gray-600 font-medium">Accuracy Rate</p>
+        </div>
+        
+        <!-- Active Users -->
+        <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 text-center shadow-lg transition-transform hover:-translate-y-2 duration-300">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-xl shadow-md text-blue-600 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="text-4xl font-bold text-gray-800 mb-2">20K+</h3>
+          <p class="text-gray-600 font-medium">Active Users</p>
+        </div>
+        
+        <!-- Resumes Analyzed -->
+        <div class="bg-gradient-to-br from-gray-50 to-blue-50 rounded-xl p-8 text-center shadow-lg transition-transform hover:-translate-y-2 duration-300">
+          <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-xl shadow-md text-blue-600 mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-4xl font-bold text-gray-800 mb-2">5M+</h3>
+          <p class="text-gray-600 font-medium">Resumes Analyzed</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- Features Section -->
-<section id="features" class="container mx-auto px-6 py-12 text-center">
-  <h2 class="text-3xl font-bold mb-8">Key Features</h2>
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
-      <h3 class="text-xl font-semibold text-white mb-4">Advanced Ranking Algorithm</h3>
-      <p class="text-gray-700">Ranks resumes based on relevancy and skills.</p>
+
+
+<!-- User Type Section -->
+<section class="bg-white py-24">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Choose Your Path</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Whether you're looking for your dream job or the perfect candidate, our platform is tailored for your success.</p>
     </div>
-    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
-      <h3 class="text-xl font-semibold text-white mb-4">User-Friendly Interface</h3>
-      <p class="text-gray-700">Intuitive design for an easy experience.</p>
-    </div>
-    <div class="bg-white bg-opacity-10 p-6 rounded-lg shadow-md card-hover">
-      <h3 class="text-xl font-semibold text-white mb-4">Mobile-Friendly</h3>
-      <p class="text-gray-700">Access your ranked resumes on the go.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="group bg-gradient-to-br from-blue-50 to-blue-100 p-6 sm:p-8 rounded-3xl shadow-lg transform transition duration-500 hover:-translate-y-2 hover:shadow-2xl border border-gray-100 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-40 h-40 bg-blue-100 rounded-full group-hover:bg-blue-200 transition-colors duration-500"></div>
+        <div class="text-center mb-6 relative z-10">
+          <div class="inline-block p-4 rounded-full bg-blue-100 mb-4 group-hover:bg-blue-200 transition-colors duration-300 shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800">For Job Seekers</h3>
+        </div>
+        <div class="relative z-10">
+          <img src="../../../assets/image/job-seeker.svg" alt="Job Seeker" class="mx-auto my-6 w-40 sm:w-48 h-40 sm:h-48 object-contain transform transition duration-500 group-hover:scale-110">
+          <p class="text-gray-600 text-lg mb-6">Our AI analyzes your resume against job descriptions to find your perfect career match and helps you optimize your profile for better results.</p>
+          <ul class="space-y-2 mb-8">
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Resume optimization suggestions
+            </li>
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Skill gap analysis
+            </li>
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Personalized job matches
+            </li>
+          </ul>
+          <div class="text-center">
+            <a href="#" (click)="showModal('job-seeker')" class="inline-block bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-3 rounded-lg transition duration-300 shadow-md hover:shadow-lg font-medium transform hover:-translate-y-1">Get Started</a>
+          </div>
+        </div>
+      </div>
+      <div class="group bg-gradient-to-br from-purple-50 to-purple-100 p-6 sm:p-8 rounded-3xl shadow-lg transform transition duration-500 hover:-translate-y-2 hover:shadow-2xl border border-gray-100 relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 w-40 h-40 bg-purple-100 rounded-full group-hover:bg-purple-200 transition-colors duration-500"></div>
+        <div class="text-center mb-6 relative z-10">
+          <div class="inline-block p-4 rounded-full bg-purple-100 mb-4 group-hover:bg-purple-200 transition-colors duration-300 shadow-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold text-gray-800">For Recruiters</h3>
+        </div>
+        <div class="relative z-10">
+          <img src="../../../assets/image/undraw_interview_yz52.svg" alt="Recruiter" class="mx-auto my-6 w-40 sm:w-48 h-40 sm:h-48 object-contain transform transition duration-500 group-hover:scale-110">
+          <p class="text-gray-600 text-lg mb-6">Cut through the noise and find the best candidates quickly with our intelligent ranking system that matches skills to your job requirements.</p>
+          <ul class="space-y-2 mb-8">
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Intelligent candidate ranking
+            </li>
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Bulk resume processing
+            </li>
+            <li class="flex items-center text-gray-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Skill-based shortlisting
+            </li>
+          </ul>
+          <div class="text-center">
+            <a href="#" (click)="showModal('recruiter')" class="inline-block bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white px-8 py-3 rounded-lg transition duration-300 shadow-md hover:shadow-lg font-medium transform hover:-translate-y-1">Get Started</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-gray-900 text-white text-center py-4">
-  <p>&copy; 2025 Resume Ranker. All rights reserved.</p>
-</footer>
-  
+<!-- How It Works -->
+<section id="how-it-works" class="bg-gray-50 py-24">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">How It Works</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Our simple three-step process gets you results in minutes</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-xl shadow-lg text-center relative hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">1</div>
+        <div class="h-40 flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Upload</h3>
+        <p class="text-gray-600">Upload your resume or job description to our secure platform</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-xl shadow-lg text-center relative mt-10 md:mt-0 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">2</div>
+        <div class="h-40 flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Process</h3>
+        <p class="text-gray-600">Our AI analyzes and ranks based on skills, experience, and requirements</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-xl shadow-lg text-center relative mt-10 md:mt-0 hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1">
+        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center text-xl font-bold">3</div>
+        <div class="h-40 flex items-center justify-center mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 text-blue-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4">Results</h3>
+        <p class="text-gray-600">Get detailed matching scores and actionable insights instantly</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="bg-white py-24">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Powerful Features</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Everything you need to optimize your hiring or job search process</p>
+    </div>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-blue-100 group-hover:bg-blue-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Smart Ranking</h3>
+        <p class="text-gray-600 text-center">Our AI algorithm ranks resumes with 95% accuracy, considering both hard and soft skills.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-green-100 group-hover:bg-green-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Skill Gap Analysis</h3>
+        <p class="text-gray-600 text-center">Identify missing skills and get suggestions to improve your resume or job description.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-purple-100 group-hover:bg-purple-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">AI Matching</h3>
+        <p class="text-gray-600 text-center">Our advanced AI finds the most compatible matches between candidates and job listings.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-yellow-100 group-hover:bg-yellow-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Smart Recommendations</h3>
+        <p class="text-gray-600 text-center">Get personalized recommendations to improve your chances of success.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-red-100 group-hover:bg-red-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Analytics Dashboard</h3>
+        <p class="text-gray-600 text-center">Track your performance with detailed analytics and insights.</p>
+      </div>
+      
+      <div class="bg-white p-8 rounded-2xl shadow-lg transition duration-300 hover:shadow-xl border border-gray-100 group">
+        <div class="flex items-center justify-center mb-6">
+          <div class="p-4 rounded-full bg-indigo-100 group-hover:bg-indigo-200 transition-colors duration-300 group-hover:scale-110 transform">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Interview Scheduling</h3>
+        <p class="text-gray-600 text-center">Seamlessly schedule interviews with top candidates through our integrated calendar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-24 bg-gradient-to-br from-blue-50 to-indigo-100">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Our Users Say</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">Real success stories from job seekers and recruiters using ResumeRanker</p>
+    </div>
+    
+    <div class="testimonial-slider overflow-hidden relative">
+      <div class="swiper-wrapper flex flex-col md:flex-row gap-6">
+        <!-- Testimonial 1 -->
+        <div class="swiper-slide bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full md:w-1/3">
+          <div class="flex mb-6">
+            <div class="h-14 w-14 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-800">Sarah Johnson</h4>
+              <p class="text-gray-500">UX Designer</p>
+            </div>
+          </div>
+          <div class="flex mb-6">
+            <div class="text-yellow-400 flex">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-6">"After using ResumeRanker to optimize my resume, I landed interviews with 3 top tech companies in just one week. The skill gap analysis was incredibly helpful!"</p>
+          <p class="text-blue-600 font-medium">Hired at Google within 3 weeks</p>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="swiper-slide bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full md:w-1/3 mt-6 md:mt-0">
+          <div class="flex mb-6">
+            <div class="h-14 w-14 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-800">Michael Rodriguez</h4>
+              <p class="text-gray-500">HR Director</p>
+            </div>
+          </div>
+          <div class="flex mb-6">
+            <div class="text-yellow-400 flex">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+          </div>
+          <p class="text-gray-600 italic mb-6">"ResumeRanker has revolutionized our hiring process. We've reduced time-to-hire by 60% and improved the quality of candidates we interview. The AI ranking is incredibly accurate!"</p>
+          <p class="text-purple-600 font-medium">Reduced hiring costs by 45%</p>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="swiper-slide bg-white rounded-2xl shadow-lg p-8 md:p-10 w-full md:w-1/3 mt-6 md:mt-0">
+          <div class="flex mb-6">
+            <div class="h-14 w-14 rounded-full bg-green-100 flex items-center justify-center mr-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-lg font-bold text-gray-800">Emily Chen</h4>
+              <p class="text-gray-500">Software Engineer</p>
+            </div>
+          </div>
+          <div class="flex mb-6">
+            <div class="text-yellow-400 flex">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 -->
+                </div>
+               </div></div></div></div></div></section>

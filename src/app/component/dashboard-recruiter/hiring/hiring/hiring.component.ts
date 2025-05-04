@@ -80,7 +80,7 @@ export class HiringComponent {
       this.applications = await this.jobService.getApplicationsForJob(jobId);
       console.log("This Applications :",this.applications);
       this.showApplicationsModal = true;
-      console.log("Application :",this.applications);
+      console.log("Application :",this.applications[0].candidate);
     } catch (error) {
       console.error("Error fetching applications:", error);
     }

@@ -7,6 +7,15 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 export class JobService {
    private supabase_client: SupabaseClient;
    resumeSummary: any;
+   jobDescription: any;
+   ResumeATS: any;
+   overallMatchScore: any;
+   technicalSkillsMatch: any;
+   experienceMatch: any;
+   educationMatch: any;
+   missingSkills: any;
+   matchingSkills: any;
+
   constructor() {
     this.supabase_client = createClient('https://bosbuvwxrcskbqlpckpu.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvc2J1dnd4cmNza2JxbHBja3B1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgyMjc1MjksImV4cCI6MjA1MzgwMzUyOX0.Etdq-sNv4UAhYFJDU4Wsz3x2L64ZEQqS-wuum25ATUE',{
             auth: {
@@ -133,7 +142,6 @@ export class JobService {
     }
 
     if (resumeUrl) {
-        try {
             const body={ url: resumeUrl };
             console.log("body",body);
             const headers={
@@ -148,26 +156,46 @@ export class JobService {
             const result = await response;
             console.log("Result :",result);
             this.resumeSummary = result || "No summary extracted."; 
-        } catch (error) {
-            console.error("Error extracting resume summary:", error);
-        }
+
+            this.jobDescription=await this.getJobsById(jobId);
+            console.log("Getting job Detaillss..:",this.jobDescription[0].description);
+
+            
+
+            this.ResumeATS=await this.getResumeMatch(this.jobDescription[0].description,this.resumeSummary.data.text);
+            console.log("Resume response :",this.ResumeATS.overallMatchScore);
+            this.overallMatchScore = this.ResumeATS.overallMatchScore;
+            this.technicalSkillsMatch = this.ResumeATS.technicalSkillsMatch;
+            this.experienceMatch = this.ResumeATS.experienceMatch;
+            this.educationMatch = this.ResumeATS.educationMatch;
+            this.missingSkills = this.ResumeATS.missingSkills || [];
+            this.matchingSkills = this.ResumeATS.matchingSkills || [];
     }
 
     
     const { error: insertError } = await this.supabase_client
       .from('job_applications')
-      .insert([{ job_id: jobId, candidate_id: candidateId, resume_url: resumeUrl, resume_summary: this.resumeSummary }]);
+      .insert([{ job_id: jobId,
+          candidate_id: candidateId,
+          resume_url: resumeUrl,
+          resume_summary: this.resumeSummary,
+          overall_match_score: this.overallMatchScore,
+          technical_skills_match: this.technicalSkillsMatch,
+          experience_match: this.experienceMatch,
+          education_match: this.educationMatch,
+          missing_skills: this.missingSkills,
+          matching_skills: this.matchingSkills
+          }]);
 
     if (insertError) {
       throw insertError;
     }
 }
- 
-  
+
   async getApplicationsForJob(jobId: string): Promise<any[]> {
     const { data, error } = await this.supabase_client
       .from('job_applications')
-      .select('id, candidate_id, resume_url, candidates(fullname, email),resume_summary')
+      .select('id, candidate_id, resume_url, candidates(fullname, email),resume_summary,overall_match_score,technical_skills_match,experience_match,missing_skills,matching_skills')
       .eq('job_id', jobId);
   
     if (error) {
@@ -177,6 +205,53 @@ export class JobService {
   
     return data;
   }
+
+  async getResumeMatch(jobDescription: string, resumeSummary: string): Promise<{
+    overallMatchScore: number;
+    technicalSkillsMatch: number;
+    experienceMatch: number;
+    educationMatch: number;
+    missingSkills: string[];
+    matchingSkills: string[];
+  }> {
+    try {
+      const body = { 
+        resume: resumeSummary,
+        jobDescriptionText: jobDescription 
+      };
+      console.log("Request body:", body);
+  
+      const headers = {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvc2J1dnd4cmNza2JxbHBja3B1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgyMjc1MjksImV4cCI6MjA1MzgwMzUyOX0.Etdq-sNv4UAhYFJDU4Wsz3x2L64ZEQqS-wuum25ATUE',
+      };
+  
+      const { data, error } = await this.supabase_client.functions.invoke('ResumeATS', {
+        headers,
+        method: 'POST',
+        body
+      });
+  
+      if (error) {
+        console.error('Error from Supabase Function:', error);
+        throw new Error('Resume match function failed.');
+      }
+  
+      console.log("Response data:", data);
+      return data.matchPercentage;
+    } catch (error) {
+      console.error('Error fetching match percentage:', error);
+      
+      return {
+        overallMatchScore: 0,
+        technicalSkillsMatch: 0,
+        experienceMatch: 0,
+        educationMatch: 0,
+        missingSkills: [],
+        matchingSkills: []
+      };
+    }
+  }
+  
 
   async getJobsByRecruiter(recruiterId: string): Promise<any[]> {
     try {
@@ -240,37 +315,54 @@ export class JobService {
     }
   }
 
-  async getResumeMatch(jobDescription: string, resumeSummary: string): Promise<number> {
+  
+
+  async getComposeMail(emailList: string[], subject: string, message: string): Promise<number> {
     try {
-      const body = { 
-        resume: resumeSummary,
-        jobDescriptionText: jobDescription 
-      };
-      console.log("Request body:", body);
-  
-      const headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJvc2J1dnd4cmNza2JxbHBja3B1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgyMjc1MjksImV4cCI6MjA1MzgwMzUyOX0.Etdq-sNv4UAhYFJDU4Wsz3x2L64ZEQqS-wuum25ATUE',
+      const body = {
+        emailList, 
+        subject,
+        message
       };
   
-      
-      const { data, error } = await this.supabase_client.functions.invoke('ResumeATS', {
-        headers,
+      console.log("Sending email with body:", body);
+  
+      const { data, error } = await this.supabase_client.functions.invoke('send-email', {
         method: 'POST',
         body
       });
   
       if (error) {
-        console.error('Error from Supabase Function:', error);
+        console.error('Error from Supabase Function:', error.message || error);
         return 0;
       }
-  
-      console.log("Response data:", data);
-      return data?.matchPercentage || 0;
-    } catch (error) {
-      console.error('Error fetching match percentage:', error);
+      console.log('Email successfully sent:', data);
+      return 1; 
+    } catch (err) {
+      console.error('Unexpected error sending email:', err);
       return 0;
     }
   }
-  
-  
+
+  // job.service.ts
+
+async getCandidateEmailsByIds(candidateIds: string[]): Promise<string[]> {
+  try {
+    const { data, error } = await this.supabase_client
+      .from('candidates') 
+      .select('email')
+      .in('id', candidateIds);
+
+    if (error) {
+      console.error('Error fetching emails from Supabase:', error);
+      return [];
+    }
+
+    return data.map((candidate: any) => candidate.email);
+  } catch (err) {
+    console.error('Unexpected error fetching emails:', err);
+    return [];
+  }
+}
+
 }
