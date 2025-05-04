@@ -1,123 +1,159 @@
-<div *ngIf="userData; else loading" class=" mx-auto p-8 bg-white rounded-xl shadow-lg">
-  <h2 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-3">Recruiter Profile</h2>
+<div *ngIf="userData; else loading" class="w-full mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+  
+  <div class="flex flex-col items-center bg-gradient-to-r from-blue-50 to-indigo-50 py-8 border-b">
+    <div *ngIf="getLogoUrl()" class="mb-4">
+      <img [src]="getLogoUrl()" alt="Company Logo" class="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg" />
+    </div>
+    <h1 *ngIf="updatedUserData?.company_name" class="text-2xl font-bold text-gray-800">
+      {{updatedUserData.company_name}}
+    </h1>
+    <p *ngIf="updatedUserData?.industry" class="text-gray-600 mt-1">
+      {{updatedUserData.industry}}
+    </p>
+  </div>
 
-  <form #profileForm="ngForm" (ngSubmit)="saveChanges()" class="space-y-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Personal Information Section -->
-      <div class="col-span-2">
-        <h3 class="text-xl font-semibold text-gray-700 mb-3">Personal Information</h3>
-      </div>
+  <div class="p-8">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 border-b pb-3 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      </svg>
+      Recruiter Profile
+    </h2>
+
+    <form #profileForm="ngForm" (ngSubmit)="saveChanges()" class="space-y-8">
       
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Full Name</label>
-        <input 
-          name="full_name" 
-          [(ngModel)]="updatedUserData.full_name" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-          required 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Email</label>
-        <input 
-          name="email" 
-          [(ngModel)]="updatedUserData.email" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" 
-          disabled 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Phone Number</label>
-        <input 
-          name="phone_number" 
-          [(ngModel)]="updatedUserData.phone_number" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-
-      <!-- Company Information Section -->
-      <div class="col-span-2 mt-6">
-        <h3 class="text-xl font-semibold text-gray-700 mb-3">Company Information</h3>
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Company Name</label>
-        <input 
-          name="company_name" 
-          [(ngModel)]="updatedUserData.company_name" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-          required 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Company Website</label>
-        <input 
-          name="company_website" 
-          [(ngModel)]="updatedUserData.company_website" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Industry</label>
-        <input 
-          name="industry" 
-          [(ngModel)]="updatedUserData.industry" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Number of Employees</label>
-        <input 
-          type="number" 
-          name="number_of_employees" 
-          [(ngModel)]="updatedUserData.number_of_employees" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-      
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Company Address</label>
-        <input 
-          name="company_address" 
-          [(ngModel)]="updatedUserData.company_address" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-
-      <div class="space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Headquarters Location</label>
-        <input 
-          name="headquarters_location" 
-          [(ngModel)]="updatedUserData.headquarters_location" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
-        />
-      </div>
-
-      <div class="col-span-2 space-y-2">
-        <label class="block text-sm font-medium text-gray-700">Company Description</label>
-        <textarea 
-          name="company_description" 
-          [(ngModel)]="updatedUserData.company_description" 
-          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition h-32 resize-none" 
-        ></textarea>
-      </div>
-
-      <!-- Company Logo Section -->
-      <div class="col-span-2 space-y-4">
-        <label class="block text-sm font-medium text-gray-700">Company Logo</label>
+      <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold text-blue-700 mb-4 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Personal Information
+        </h3>
         
-        <div class="flex items-center space-x-4">
-          <div *ngIf="getLogoUrl()" class="flex-shrink-0">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Full Name</label>
+            <input 
+              name="full_name" 
+              [(ngModel)]="updatedUserData.full_name" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+              required 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Email</label>
+            <input 
+              name="email" 
+              [(ngModel)]="updatedUserData.email" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" 
+              disabled 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+            <input 
+              name="phone_number" 
+              [(ngModel)]="updatedUserData.phone_number" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold text-blue-700 mb-4 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+          </svg>
+          Company Information
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Company Name</label>
+            <input 
+              name="company_name" 
+              [(ngModel)]="updatedUserData.company_name" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+              required 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Company Website</label>
+            <input 
+              name="company_website" 
+              [(ngModel)]="updatedUserData.company_website" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Industry</label>
+            <input 
+              name="industry" 
+              [(ngModel)]="updatedUserData.industry" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Number of Employees</label>
+            <input 
+              type="number" 
+              name="number_of_employees" 
+              [(ngModel)]="updatedUserData.number_of_employees" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+          
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Company Address</label>
+            <input 
+              name="company_address" 
+              [(ngModel)]="updatedUserData.company_address" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Headquarters Location</label>
+            <input 
+              name="headquarters_location" 
+              [(ngModel)]="updatedUserData.headquarters_location" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" 
+            />
+          </div>
+
+          <div class="col-span-2 space-y-2">
+            <label class="block text-sm font-medium text-gray-700">Company Description</label>
+            <textarea 
+              name="company_description" 
+              [(ngModel)]="updatedUserData.company_description" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition h-32 resize-none" 
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg p-6 shadow-sm border border-gray-100">
+        <h3 class="text-lg font-semibold text-blue-700 mb-4 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          Company Logo
+        </h3>
+        
+        <div class="flex flex-col md:flex-row items-center md:space-x-6">
+          <div *ngIf="getLogoUrl()" class="mb-4 md:mb-0">
             <img [src]="getLogoUrl()" alt="Company Logo" class="w-24 h-24 rounded-full object-cover border-2 border-gray-200 shadow-md" />
           </div>
           
-          <div class="flex-grow space-y-3">
-            <div class="flex items-center">
+          <div class="space-y-4 w-full">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
               <input 
                 type="file" 
                 (change)="onFileSelected($event)" 
@@ -127,7 +163,7 @@
               />
               <label 
                 for="logo-upload" 
-                class="cursor-pointer px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition flex items-center"
+                class="cursor-pointer px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg transition flex items-center justify-center mb-3 sm:mb-0"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -137,7 +173,7 @@
               
               <button 
                 (click)="uploadLogo()" 
-                class="ml-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition flex items-center"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition flex items-center justify-center"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12" />
@@ -145,25 +181,22 @@
                 Upload Logo
               </button>
             </div>
-            <p class="text-xs text-gray-500">Recommended: Square image, at least 200x200 pixels</p>
+            <p class="text-xs text-gray-500">Recommended: Square image, at least 200x200 pixels. Your logo will appear at the top of your profile.</p>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Submit Button -->
-    <div class="pt-4 border-t flex justify-end">
-      <button 
-        type="submit" 
-        class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow-md transition flex items-center"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-        Save Changes
-      </button>
-    </div>
-  </form>
+      
+      <div class="pt-4 flex justify-end">
+        <button type="submit" class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg shadow-md transition flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <ng-template #loading>
@@ -171,4 +204,4 @@
     <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
     <p class="ml-3 text-gray-600 font-medium">Loading recruiter details...</p>
   </div>
-</ng-template>
+</ng-template>  

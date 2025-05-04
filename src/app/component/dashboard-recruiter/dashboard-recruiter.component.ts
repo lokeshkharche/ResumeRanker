@@ -47,6 +47,11 @@ export class DashboardRecruiterComponent {
       this.router.navigate(['recruiter-dashboard/profiles']); 
     }
 
+    goToHome() {
+      this.isProfileIncomplete = false;
+      this.router.navigate(['recruiter-dashboard']); 
+    }
+
     gotoHiring(){
       this.router.navigate(['recruiter-dashboard/hiring']); 
     }

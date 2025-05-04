@@ -1,96 +1,200 @@
-<div class="p-6 max-w-5xl mx-auto bg-white shadow-md rounded-lg">
-  <h2 class="text-2xl font-semibold mb-4">Job Listings</h2>
-
-  <table class="w-full border-collapse border border-gray-300">
-    <thead>
-      <tr class="bg-gray-200">
-        <th class="border p-2">Job Title</th>
-        <th class="border p-2">Description</th>
-        <th class="border p-2">Location</th>
-        <th class="border p-2">Salary</th>
-        <th class="border p-2">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let job of jobs">
-        <td class="border p-2 font-medium">{{ job.title }}</td>
-        <td class="border p-2">{{ job.description }}</td>
-        <td class="border p-2">{{ job.location }}</td>
-        <td class="border p-2">{{ job.salary ? job.salary : 'N/A' }}</td>
-        <td class="border p-2">
-          <button 
-            class="bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600 transition"
-            (click)="viewApplications(job.id)">
-            Applications
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <button (click)="toggleForm()" class="mt-4 bg-green-500 text-white p-2 rounded-md w-full hover:bg-green-600 transition">
-    {{ showForm ? 'Close Job Form' : 'Post a Job' }}
-  </button>
-
-  <div *ngIf="showForm" class="mt-4 p-4 border rounded-md bg-gray-100">
-    <h2 class="text-2xl font-semibold mb-4">Post a New Job</h2>
-
-    <form [formGroup]="jobForm" (ngSubmit)="submitJob()" class="space-y-4">
-      <div>
-        <label class="block text-gray-700 font-medium">Job Title</label>
-        <input type="text" formControlName="title" class="w-full p-2 border rounded-md" placeholder="Enter job title" required>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-medium">Description</label>
-        <textarea formControlName="description" class="w-full p-2 border rounded-md" rows="4" placeholder="Enter job description" required></textarea>
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-medium">Location</label>
-        <input type="text" formControlName="location" class="w-full p-2 border rounded-md" placeholder="Enter job location">
-      </div>
-
-      <div>
-        <label class="block text-gray-700 font-medium">Salary</label>
-        <input type="number" formControlName="salary" class="w-full p-2 border rounded-md" placeholder="Enter salary (optional)">
-      </div>
-
-      <button type="submit" class="bg-blue-500 text-white p-2 rounded-md w-full hover:bg-blue-600 transition">
-        Post Job
+<div class="min-h-screen bg-gray-50 py-8">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">Job Listings</h1>
+      <button 
+        (click)="toggleForm()" 
+        class="flex items-center px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <svg *ngIf="!showForm" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        <svg *ngIf="showForm" class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+        {{ showForm ? 'Close Form' : 'Post New Job' }}
       </button>
-    </form>
+    </div>
+
+    <!-- Job Posting Form -->
+    <div *ngIf="showForm" class="mb-8 bg-white shadow-lg rounded-xl overflow-hidden transition-all duration-300 ease-in-out">
+      <div class="bg-indigo-600 px-6 py-4">
+        <h2 class="text-xl font-semibold text-white">Create New Job Listing</h2>
+      </div>
+      <div class="p-6">
+        <form [formGroup]="jobForm" (ngSubmit)="submitJob()" class="space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+              <input 
+                type="text" 
+                formControlName="title" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" 
+                placeholder="Software Engineer, Product Manager, etc."
+                required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+              <input 
+                type="text" 
+                formControlName="location" 
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" 
+                placeholder="Remote, New York, London, etc.">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <textarea 
+              formControlName="description" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" 
+              rows="5" 
+              placeholder="Describe the role, responsibilities, requirements, etc."
+              required></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Salary Range</label>
+            <input 
+              type="number" 
+              formControlName="salary" 
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-indigo-500 focus:border-indigo-500" 
+              placeholder="Annual salary in USD">
+          </div>
+
+          <div class="flex justify-end">
+            <button 
+              type="submit" 
+              class="px-6 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              Publish Job
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Job Listings Cards -->
+    <div class="grid grid-cols-1 gap-6">
+      <div *ngFor="let job of jobs" class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-200">
+        <div class="p-6">
+          <div class="flex justify-between items-start">
+            <div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">{{ job.title }}</h3>
+              <div class="flex items-center text-gray-600 mb-4">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>{{ job.location || 'Location not specified' }}</span>
+              </div>
+            </div>
+            <div class="flex flex-col items-end">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800 mb-2">
+                {{ job.salary ? ('$' + job.salary) : 'Salary not disclosed' }}
+              </span>
+              <button 
+                (click)="viewApplications(job.id)" 
+                class="flex items-center px-3 py-1 text-sm bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors duration-200">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path>
+                </svg>
+                View Applications
+              </button>
+            </div>
+          </div>
+          <p class="text-gray-600 mt-2 line-clamp-3">{{ job.description }}</p>
+          <div class="mt-4 pt-4 border-t border-gray-100 flex justify-between items-center">
+            <div class="flex items-center">
+              <span class="text-sm text-gray-500">Posted by you</span>
+            </div>
+            <div class="flex space-x-2">
+              <button class="px-3 py-1 text-sm bg-indigo-50 text-indigo-600 rounded hover:bg-indigo-100 transition-colors duration-200">
+                Edit
+              </button>
+              <button class="px-3 py-1 text-sm bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors duration-200">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State if no jobs -->
+    <div *ngIf="jobs.length === 0" class="flex flex-col items-center justify-center py-12 bg-white rounded-xl shadow">
+      <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+      </svg>
+      <h3 class="mt-4 text-lg font-medium text-gray-900">No job listings yet</h3>
+      <p class="mt-1 text-sm text-gray-500">Get started by creating your first job posting</p>
+      <button (click)="toggleForm()" class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition-all duration-200">
+        Post Your First Job
+      </button>
+    </div>
   </div>
 </div>
 
-<div *ngIf="showApplicationsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-3/4">
-    <h2 class="text-xl font-semibold mb-4">Job Applications</h2>
-    
-    <table class="w-full border-collapse border border-gray-300">
-      <thead>
-        <tr class="bg-gray-200">
-          <th class="border p-2">Candidate Name</th>
-          <th class="border p-2">Email</th>
-          <th class="border p-2">Resume</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let application of applications">
-          <td class="border p-2">{{ application.candidates.fullname }}</td>
-          <td class="border p-2">{{ application.candidates.email }}</td>
-          <td class="border p-2">
-            <a [href]="application.resume_url" target="_blank" class="text-blue-500 underline">View Resume</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<!-- Applications Modal -->
+<div *ngIf="showApplicationsModal" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+    <!-- Background overlay -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
-    <button (click)="closeApplicationsModal()" class="mt-4 bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition">
-      Close
-    </button>
-    <button (click)="goToATS()" class="mt-4 mx-3 bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-red-600 transition">
-      ATS
-    </button>
+    <!-- Modal panel -->
+    <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+      <div class="bg-indigo-600 px-6 py-4 flex justify-between items-center">
+        <h2 class="text-xl font-semibold text-white">Job Applications</h2>
+        <button (click)="closeApplicationsModal()" class="text-white hover:text-gray-200 focus:outline-none">
+          <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="p-6">
+        <!-- No applications state -->
+        <div *ngIf="applications.length === 0" class="py-12 flex flex-col items-center justify-center">
+          <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path>
+          </svg>
+          <p class="mt-4 text-lg font-medium text-gray-900">No applications yet</p>
+          <p class="mt-1 text-sm text-gray-500">Check back later for new applications</p>
+        </div>
+
+        <!-- Applications list -->
+        <div *ngIf="applications.length > 0" class="space-y-6">
+          <div *ngFor="let application of applications" class="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-lg font-semibold text-gray-800">{{ application.candidates.full_name }}</h3>
+                <p class="text-gray-600">{{ application.candidates.email }}</p>
+              </div>
+              <div>
+                <a [href]="application.resume_url" target="_blank" class="flex items-center px-3 py-1 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors duration-200">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13l-3 3m0 0l-3-3m3 3V8m0 13a9 9 0 110-18 9 9 0 010 18z"></path>
+                  </svg>
+                  Resume
+                </a>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">JavaScript</span>
+              <span class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">React</span>
+              <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Node.js</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex justify-between">
+          <button (click)="closeApplicationsModal()" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-200">
+            Close
+          </button>
+          <button (click)="goToATS()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-200">
+            Go to ATS
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
