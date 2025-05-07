@@ -146,4 +146,76 @@ html {
                 background-position: 0% 50%;
             }
         }
-    
+        @keyframes float {
+            0% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+            100% { transform: translate(-50%, 0); }
+          }
+          
+          @keyframes scan {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { transform: translateY(60px); opacity: 1; }
+            100% { transform: translateY(120px); opacity: 0.8; }
+          }
+          
+          @keyframes bounce-slow {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -3px); }
+          }
+          
+          @keyframes bounce-slower {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -2px); }
+          }
+          
+          @keyframes bounce-slowest {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -1px); }
+          }
+          
+          @keyframes skill-fill-95 {
+            0% { width: 0; }
+            100% { width: 95%; }
+          }
+          
+          @keyframes skill-fill-83 {
+            0% { width: 0; }
+            100% { width: 83%; }
+          }
+          
+          @keyframes skill-fill-91 {
+            0% { width: 0; }
+            100% { width: 91%; }
+          }
+          
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+          
+          .animate-scan {
+            animation: scan 4s linear infinite;
+          }
+          
+          .animate-bounce-slow {
+            animation: bounce-slow 5s ease-in-out infinite;
+          }
+          
+          .animate-bounce-slower {
+            animation: bounce-slower 6s ease-in-out infinite;
+          }
+          
+          .animate-bounce-slowest {
+            animation: bounce-slowest 7s ease-in-out infinite;
+          }
+          
+          .animate-skill-fill-95 {
+            animation: skill-fill-95 2s ease-out forwards;
+          }
+          
+          .animate-skill-fill-83 {
+            animation: skill-fill-83 2s ease-out forwards;
+          }
+          
+          .animate-skill-fill-91 {
+            animation: skill-fill-91 2s ease-out forwards;
+          }

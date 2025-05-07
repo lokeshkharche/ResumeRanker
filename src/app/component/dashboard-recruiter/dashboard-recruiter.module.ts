@@ -7,13 +7,17 @@ import { DashboardRecruiterRoutingModule } from './dashboard-recruiter-routing.m
 import { RouterModule } from '@angular/router';
 import { HiringComponent } from './hiring/hiring/hiring.component';
 import { ATSComponent } from './ATS/ats/ats.component';
+import { ComposeMailComponent } from './compose-mail/compose-mail/compose-mail.component';
+import { HomeComponent } from './home/home/home.component';
 
 @NgModule({
   declarations: [
     DashboardRecruiterComponent,
     ProfileRecruiterComponent,
     HiringComponent,
-    ATSComponent
+    ATSComponent,
+    ComposeMailComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

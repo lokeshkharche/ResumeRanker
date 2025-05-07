@@ -43,7 +43,7 @@ export class ProfileCandidateComponent {
   toggleEdit() {
     this.isEditing = !this.isEditing;
     if (!this.isEditing) {
-      this.updatedUserData = { ...this.userData }; // Reset changes on cancel
+      this.updatedUserData = { ...this.userData }; 
     }
   }
 
@@ -80,7 +80,7 @@ export class ProfileCandidateComponent {
     if (!this.currentUser || !this.updatedUserData) return;
   
     if (this.selectedFile) {
-      await this.uploadResume(); // ✅ Ensure file upload before saving profile changes
+      await this.uploadResume(); 
     }
 
     console.log("Updating candidate details:", this.updatedUserData);
